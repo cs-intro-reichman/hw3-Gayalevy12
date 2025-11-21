@@ -27,24 +27,42 @@ public class Anagram {
 	}  
 
 	// Returns true if the two given strings are anagrams, false otherwise.
-	public static boolean isAnagram(String str1, String str2){ 
-		str1 = preProcess(str1);
-        str2 = preProcess(str2);
-        if (str1.length() != str2.length()) {
-            return false;
-        }
-        int[] counts = new int[26];
-        for (int i = 0; i < str1.length(); i++) {
-            counts[str1.charAt(i) - 'a']++; 
-            counts[str2.charAt(i) - 'a']--; 
-        }
-        for (int count : counts) {
-            if (count != 0) {
-                return false;
-            }
-        }
-        return true;
+	public static boolean isAnagram(String str1, String str2) {
+    str1 = preProcess(str1);
+    str2 = preProcess(str2);
+	int index;
+	char c;
+
+	String cleanStr1 = "";
+    String cleanStr2 = "";
+
+    for (int i = 0; i < str1.length(); i++) {
+        if (str1.charAt(i) != ' ') cleanStr1 += str1.charAt(i);
     }
+    for (int i = 0; i < str2.length(); i++) {
+        if (str2.charAt(i) != ' ') cleanStr2 += str2.charAt(i);
+    }
+
+	str1= cleanStr1;
+	str2=cleanStr2;
+
+	if (str1.length() != str2.length()) 
+        return false;
+		
+		for(int i=0; i<str1.length(); i++)
+		{
+          c= str1.charAt(i);
+		  index = str2.indexOf(c);
+
+		  if (index==-1)
+		  {return false;}
+
+		  else 
+		  {str2 = str2.substring(0, index) + str2.substring(index + 1);}
+		}
+		return true;
+	}
+
 	// Returns a preprocessed version of the given string: all the letter characters are converted
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
