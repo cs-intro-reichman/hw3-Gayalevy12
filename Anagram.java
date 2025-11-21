@@ -27,23 +27,52 @@ public class Anagram {
 	}  
 
 	// Returns true if the two given strings are anagrams, false otherwise.
-	public static boolean isAnagram(String str1, String str2) {
-		// Replace the following statement with your code
-		return false;
-	}
-	   
+	public static boolean isAnagram(String str1, String str2){ 
+		str1 = preProcess(str1);
+        str2 = preProcess(str2);
+        if (str1.length() != str2.length()) 
+            return false;   
+        int index;
+        char c;
+        for(int i=0; i<str1.length(); i++)
+        {
+          c= str1.charAt(i);
+          index = str2.indexOf(c);
+          if (index==-1)
+          {return false;}
+          else
+          {str2 = str2.substring(0, index) + str2.substring(index + 1);}
+        }
+        return true;
+    }
 	// Returns a preprocessed version of the given string: all the letter characters are converted
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
 	public static String preProcess(String str) {
-		// Replace the following statement with your code
-		return "";
-	} 
-	   
+		String newStr = ""; 
+		for (int i = 0; i < str.length(); i++) {
+        char c = str.charAt(i);
+		if (Character.isLetter(c)) {
+        newStr = newStr + Character.toLowerCase(c);
+        }
+		else if (c == ' ')
+		{newStr = newStr + c; }
+} 
+		return newStr;
+}	   
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
-		// Replace the following statement with your code
-		return "";
+		String tempString = str;
+		String newStr="";
+		for(int i=0; i<str.length(); i++)
+		{
+			int randomIndex = (int)(Math.random() * tempString.length());
+			char c = tempString.charAt(randomIndex);
+			tempString = tempString.substring(0, randomIndex) + tempString.substring(randomIndex + 1);
+			newStr= newStr +c;
+
+		}
+		return newStr;
 	}
 }
